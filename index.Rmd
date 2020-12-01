@@ -9,5 +9,57 @@ output: ioslides_presentation
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-## Test Index
+## Test pages Git
 
+```{r}
+library(pacman) # lendo o pacote.
+
+pacman::p_load(tidyverse, rio) # lendo os pacotes.
+
+data <- import("C:/Users/leona/OneDrive - unb.br/UnB/Metodos_Quantitativos_aplicados_a_Ciancia_Política/Tarefas/Lista_3/Populist_speech.xlsx") # Importando os dados.
+
+```
+
+```{r}
+data <- rename(data, c("average_score" = "average score", "left_right" = "left right", 
+                       "speech_category" = "speech category", "year_begin" = "year begin",
+                       "year_end" = "year end")) # renomeando as variáveis.
+```
+
+```{r include=FALSE}
+
+new_data <- data %>%
+  group_by(region, country) %>% 
+  summarise(mean = mean(average_score)) %>% 
+  arrange(region, country) # Agrupando e sumarizando os dados.
+```
+
+## Qual o score médio do discurso populista entre os países?
+
+```{r}
+ggplot(new_data,
+       aes(x = fct_reorder(country, mean), y = mean, fill = region)) + 
+  geom_bar(stat = "identity") + 
+  coord_flip() +
+  theme_minimal() +
+  geom_hline(aes(yintercept = mean(mean)), color = "gray") +
+  labs(title = "Score Médio do Discurso Populista entre os Países",
+       caption = "Dados: TEAM POPULISM") +
+  theme_classic() + xlab("Países") + ylab("Score Médio") + 
+  theme(plot.title = element_text(hjust = 0.50, size = 15))
+
+```
+
+## Score médio agrupado por região.
+
+```{r}
+ggplot(new_data,
+       aes(x = fct_reorder(country, mean), y = mean, color = region)) + 
+  geom_point(aes(shape = region), size = 3) + 
+  coord_flip() +
+  theme_minimal() +
+  labs(title = "Score Médio do Discurso Populista entre os Países por Região",
+       caption = "Dados: TEAM POPULISM")+ xlab("Países") + ylab("Score Médio") + 
+  theme(plot.title = element_text(hjust = 0.50, size = 15)) +
+  facet_wrap(~ region, ncol = 4)
+```
