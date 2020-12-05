@@ -11,15 +11,15 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ## Índice de Confiança nas Instiuições Políticas - ICIP.
 
--   O índice foi construído a partir de uma pesquisa nacional, com a população adulta do Brasil de ambos os sexos. A mostra consistiu em 2.002 respondentes, realidaza em junho de 2019 pelo CESOP-IBOPE.
--   Originalmente a pesquisa consistiu em mapear a confiança de diversas instituições.
--   O índice propósto (***ICIP***), busca medir apenas a confiança nas instituições políticas.
+-   O índice foi construído a partir de uma pesquisa nacional, com a população adulta do Brasil de ambos os sexos. A mostra consistiu em 2.002 respondentes, realizada em junho de 2019 pelo CESOP-IBOPE.
+-   Originalmente a pesquisa buscou mapear a confiança das diversas instituições brasileiras.
+-   Contudo, o índice propósto (**ICIP**), busca medir apenas a confiança nas instituições políticas brasileiras.
 
 ## Nota Metodológica
 
 -   Originalmente a pesquisa possui 18 perguntas que medem a confiança das instituições, tais como, ***igreja, militares, judiciário, escolas, bancos***, etc.
 
--   Para o propósito da construção do índice (***ICIP***) interessava apenas as variáveis que compõem a dimensão política.
+-   Para o propósito da construção do índice (**ICIP**), interessava apenas as variáveis que compõem a dimensão política.
 
 -   Portanto, o primeiro critério foi selecionar itens que possuíssem ***validade aparente*** (***validade lógica***). Ou seja, a consistência das perguntas que compõe o indicador. Cada item listado precisa oferecer uma indicação daquilo que está sendo medido (BABBIE, 1999; CERVI, 2017).
 
@@ -31,12 +31,12 @@ knitr::opts_chunk$set(echo = FALSE)
 
 -   O índice possui 7 questões. Cada questão possui uma escala de intensidade que varia de 1 a 4.
 
-    1.  Muita Confiança = 4
-    2.  Alguma Confiança = 3
-    3.  Quase Nenhuma Confiança = 2
-    4.  Nenhuma Confiança = 1
+    1.  **Muita Confiança = 4**
+    2.  **Alguma Confiança = 3**
+    3.  **Quase Nenhuma Confiança = 2**
+    4.  **Nenhuma Confiança = 1**
 
-**Nota:** respondentes que marcaram NS/NR foi contabilizado como *missing*.
+**Observação:** respondentes que marcaram NS/NR foi contabilizado como *missing* reduzindo a amostra para *n* = 1.880.
 
 ## Nota Metodológica
 
@@ -44,23 +44,25 @@ Itens que compõe o índice:
 
 Confiança no:
 
-1.  NO GOVERNO FEDERAL
-2.  NO CONGRESSO NACIONAL
-3.  NOS PARTIDOS POLÍTICOS
-4.  NOS SINDICATOS
-5.  NO GOVERNO DA CIDADE ONDE O(A) SR(A) MORA
-6.  NAS ELEIÇÕES, NO SISTEMA ELEITORAL
-7.  NO PRESIDENTE DA REPÚBLICA
+1.  **NO GOVERNO FEDERAL**
+2.  **NO CONGRESSO NACIONAL**
+3.  **NOS PARTIDOS POLÍTICOS**
+4.  **NOS SINDICATOS**
+5.  **NO GOVERNO DA CIDADE ONDE O(A) SR(A) MORA**
+6.  **NAS ELEIÇÕES, NO SISTEMA ELEITORAL**
+7.  **NO PRESIDENTE DA REPÚBLICA**
 
 ## Nota Metodológica
 
--   O índice (***ICIP***) representa o somatório do valor de cada item. Por exemplo: se o respondente marcou **Nenhuma Confiança = 1** para todos itens, então, seu score é 7, (1 x 7 = 7). Significa que o respondente não possue nenhuma confiança nas instituições políticas. E assim sucessivamente.
+-   O índice (**ICIP**) representa o somatório do valor de cada item. Por exemplo: se o respondente marcou **Nenhuma Confiança = 1** para todos itens, então, seu score é 7, (1 x 7 = 7). Significa que o respondente não possue nenhuma confiança nas instituições políticas. E assim sucessivamente.
 
 A tabela abaixo sumariza o indice:
 
-|         Score        | Nenhuma Confiança | Pouca Confiança |    Confia   | Muita Confiança |
-|:--------------------:|:-----------------:|:---------------:|:-----------:|:---------------:|
-| **Min. 7 - Max. 28** |       **7**       |    **7 a 14**   | **14 a 21** |   **21 a 28**   |
++----------------------+-------------------+-----------------+-------------+-----------------+
+| Score                | Nenhuma Confiança | Pouca Confiança | Confia      | Muita Confiança |
++:====================:+:=================:+:===============:+:===========:+:===============:+
+| **Min. 7 - Max. 28** | **7**             | **7 a 14**      | **14 a 21** | **21 a 28**     |
++----------------------+-------------------+-----------------+-------------+-----------------+
 
 ## Alfa de Cronbach
 
