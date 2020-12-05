@@ -1,7 +1,7 @@
 ---
-title: "Index"
-author: "Leonardo"
-date: "01/12/2020"
+title: "ICIP - Índice de Confiança nas Instiuições Políticas"
+author: "Leonardo R."
+date: "04/12/2020"
 output: ioslides_presentation
 ---
 
@@ -9,57 +9,114 @@ output: ioslides_presentation
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-## Test pages Git
+## Índice de Confiança nas Instiuições Políticas - ICIP.
+
+-   O índice foi construído a partir de uma pesquisa nacional, com a população adulta do Brasil de ambos os sexos. A mostra consistiu em 2.002 respondentes, realidaza em junho de 2019 pelo CESOP-IBOPE.
+-   Originalmente a pesquisa consistiu em mapear a confiança de diversas instituições.
+-   O índice propósto (***ICIP***), busca medir apenas a confiança nas instituições políticas.
+
+## Nota Metodológica
+
+-   Originalmente a pesquisa possui 18 perguntas que medem a confiança das instituições, tais como, ***igreja, militares, judiciário, escolas, bancos***, etc.
+
+-   Para o propósito da construção do índice (***ICIP***) interessava apenas as variáveis que compõem a dimensão política.
+
+-   Portanto, o primeiro critério foi selecionar itens que possuíssem ***validade aparente*** (***validade lógica***). Ou seja, a consistência das perguntas que compõe o indicador. Cada item listado precisa oferecer uma indicação daquilo que está sendo medido (BABBIE, 1999; CERVI, 2017).
+
+## Nota Metodológica
+
+-   Foi levando em conta o caráter ***unidimensional*** do índice. Ou seja, o índice deve representar apenas uma única dimensão. De modo que os itens devem refletir apenas variáveis que possuem relação empírica. Portanto, itens que medem confiança em instituições que não políticas, não fazem parte do índice.
+
+## Nota Metodológica
+
+-   O índice possui 7 questões. Cada questão possui uma escala de intensidade que varia de 1 a 4.
+
+    1.  Muita Confiança = 4
+    2.  Alguma Confiança = 3
+    3.  Quase Nenhuma Confiança = 2
+    4.  Nenhuma Confiança = 1
+
+**Nota:** respondentes que marcaram NS/NR foi contabilizado como *missing*.
+
+## Nota Metodológica
+
+Itens que compõe o índice:
+
+Confiança no:
+
+1.  NO GOVERNO FEDERAL
+2.  NO CONGRESSO NACIONAL
+3.  NOS PARTIDOS POLÍTICOS
+4.  NOS SINDICATOS
+5.  NO GOVERNO DA CIDADE ONDE O(A) SR(A) MORA
+6.  NAS ELEIÇÕES, NO SISTEMA ELEITORAL
+7.  NO PRESIDENTE DA REPÚBLICA
+
+## Nota Metodológica
+
+-   O índice (***ICIP***) representa o somatório do valor de cada item. Por exemplo: se o respondente marcou **Nenhuma Confiança = 1** para todos itens, então, seu score é 7, (1 x 7 = 7). Significa que o respondente não possue nenhuma confiança nas instituições políticas. E assim sucessivamente.
+
+A tabela abaixo sumariza o indice:
+
+|         Score        | Nenhuma Confiança | Pouca Confiança |    Confia   | Muita Confiança |
+|:--------------------:|:-----------------:|:---------------:|:-----------:|:---------------:|
+| **Min. 7 - Max. 28** |       **7**       |    **7 a 14**   | **14 a 21** |   **21 a 28**   |
+
+## Alfa de Cronbach
 
 ```{r}
-library(pacman) # lendo o pacote.
+pacman::p_load(rio, tidyverse, skimr, psych, hrbrthemes, viridis)
 
-pacman::p_load(tidyverse, rio) # lendo os pacotes.
+icip <- import("C:/Users/leona/Downloads/Indice_construcao/Conf_inst/04693.SAV")
 
-data <- import("C:/Users/leona/OneDrive - unb.br/UnB/Metodos_Quantitativos_aplicados_a_Ciancia_Política/Tarefas/Lista_3/Populist_speech.xlsx") # Importando os dados.
+icip1 <- icip %>% select(P101, P102, P103, P104, P106, P115, P117) %>% 
+  filter(P101 < 5, P102 < 5, P103 < 5, P104 < 5, P106 < 5, P115 < 5, P117 < 5)
 
+icip2 <- icip %>% select(P101, P102, P103, P104, P106, P115, P117) %>% 
+  filter(P101 < 5, P102 < 5, P103 < 5, P104 < 5, P106 < 5, P115 < 5, P117 < 5) %>% 
+  mutate(ICIP = rowSums(.[,1:7]))
+
+icip3 <- icip %>% select(P101, P102, P103, P104, P106, P115, P117) %>% 
+  filter(P101 < 5, P102 < 5, P103 < 5, P104 < 5, P106 < 5, P115 < 5, P117 < 5) %>% 
+  mutate(ICIP = rowSums(.[,1:7])) %>%
+  mutate(
+    ICIP = case_when(
+      ICIP <= 7 ~ "Nenhuma Confiança",
+      ICIP <= 14 ~ "Pouco Confiança",
+      ICIP <= 21 ~ "Confia",
+      ICIP > 21 ~ "Muita Confiança"
+    )
+  ) %>% 
+  mutate(INDICE_ICIP = rowSums(.[,1:7]))
+
+icip3 <- icip %>% select(P101, P102, P103, P104, P106, P115, P117) %>% 
+  filter(P101 < 5, P102 < 5, P103 < 5, P104 < 5, P106 < 5, P115 < 5, P117 < 5) %>% 
+  mutate(ICIP = rowSums(.[,1:7])) %>%
+  mutate(
+    ICIP = case_when(
+      ICIP <= 7 ~ "Nenhuma Confiança",
+      ICIP <= 14 ~ "Pouca Confiança",
+      ICIP <= 21 ~ "Confia",
+      ICIP > 21 ~ "Muita Confiança"
+    )
+  ) %>% 
+  mutate(INDICE_ICIP = rowSums(.[,1:7]))
 ```
 
-```{r}
-data <- rename(data, c("average_score" = "average score", "left_right" = "left right", 
-                       "speech_category" = "speech category", "year_begin" = "year begin",
-                       "year_end" = "year end")) # renomeando as variáveis.
+```{r echo=FALSE}
+psych::alpha(icip1)
 ```
 
-```{r include=FALSE}
+## ICIP
 
-new_data <- data %>%
-  group_by(region, country) %>% 
-  summarise(mean = mean(average_score)) %>% 
-  arrange(region, country) # Agrupando e sumarizando os dados.
-```
+O gráfico abaixo resume o índice por categoria:
 
-## Qual o score médio do discurso populista entre os países?
-
-```{r}
-ggplot(new_data,
-       aes(x = fct_reorder(country, mean), y = mean, fill = region)) + 
-  geom_bar(stat = "identity") + 
-  coord_flip() +
-  theme_minimal() +
-  geom_hline(aes(yintercept = mean(mean)), color = "gray") +
-  labs(title = "Score Médio do Discurso Populista entre os Países",
-       caption = "Dados: TEAM POPULISM") +
-  theme_classic() + xlab("Países") + ylab("Score Médio") + 
-  theme(plot.title = element_text(hjust = 0.50, size = 15))
-
-```
-
-## Score médio agrupado por região.
-
-```{r}
-ggplot(new_data,
-       aes(x = fct_reorder(country, mean), y = mean, color = region)) + 
-  geom_point(aes(shape = region), size = 3) + 
-  coord_flip() +
-  theme_minimal() +
-  labs(title = "Score Médio do Discurso Populista entre os Países por Região",
-       caption = "Dados: TEAM POPULISM")+ xlab("Países") + ylab("Score Médio") + 
-  theme(plot.title = element_text(hjust = 0.50, size = 15)) +
-  facet_wrap(~ region, ncol = 4)
+```{r echo=FALSE}
+icip3 %>%
+  ggplot(aes(x= ICIP, y= INDICE_ICIP, fill = ICIP)) +
+  geom_boxplot() +
+  scale_fill_viridis(discrete = TRUE, alpha=0.6) +
+  geom_jitter(color="black", size=0.4, alpha=0.9) +
+  theme_classic() + xlab("Categorias") + ylab("ICIP") + 
+  labs(fill = "Catgorias")
 ```
