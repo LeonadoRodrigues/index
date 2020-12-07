@@ -67,7 +67,7 @@ A tabela abaixo sumariza o indice:
 ## Alfa de Cronbach
 
 ```{r}
-pacman::p_load(rio, tidyverse, skimr, psych, hrbrthemes, viridis)
+pacman::p_load(rio, tidyverse, skimr, psych, hrbrthemes, viridis, rmarkdown)
 
 icip <- import("C:/Users/leona/Downloads/Indice_construcao/Conf_inst/04693.SAV")
 
@@ -93,20 +93,34 @@ icip3 <- icip %>% select(P101, P102, P103, P104, P106, P115, P117) %>%
 
 icip3 <- icip %>% select(P101, P102, P103, P104, P106, P115, P117) %>% 
   filter(P101 < 5, P102 < 5, P103 < 5, P104 < 5, P106 < 5, P115 < 5, P117 < 5) %>% 
-  mutate(ICIP = rowSums(.[,1:7])) %>%
+  mutate(Categorias = rowSums(.[,1:7])) %>%
   mutate(
-    ICIP = case_when(
-      ICIP <= 7 ~ "Nenhuma Confiança",
-      ICIP <= 14 ~ "Pouca Confiança",
-      ICIP <= 21 ~ "Confia",
-      ICIP > 21 ~ "Muita Confiança"
+    Categorias = case_when(
+      Categorias <= 7 ~ "Nenhuma Confiança",
+      Categorias <= 14 ~ "Pouca Confiança",
+      Categorias <= 21 ~ "Confia",
+      Categorias > 21 ~ "Muita Confiança"
     )
   ) %>% 
-  mutate(INDICE_ICIP = rowSums(.[,1:7]))
+  mutate(INDICE_ICIP = rowSums(.[,1:7])) %>%
+  rename("V1" = "P101", "V2" = "P102", "V3" = "P103", "V4" = "P104", "V5" = "P106", "V6" = "P115", "V7" = "P117") %>% 
+  select(Categorias, INDICE_ICIP, V1, V2, V3, V4, V5, V6, V7)
 ```
 
 ```{r echo=FALSE}
 psych::alpha(icip1)
+```
+
+## Dados
+
+```{r}
+paged_table(icip3, list(rows.print = 7))
+```
+
+Média do Índice:
+
+```{r}
+mean(icip3$INDICE_ICIP)
 ```
 
 ## ICIP
@@ -115,10 +129,10 @@ O gráfico abaixo resume o índice por categoria:
 
 ```{r echo=FALSE}
 icip3 %>%
-  ggplot(aes(x= ICIP, y= INDICE_ICIP, fill = ICIP)) +
+  ggplot(aes(x= Categorias, y= INDICE_ICIP, fill = Categorias)) +
   geom_boxplot() +
   scale_fill_viridis(discrete = TRUE, alpha=0.6) +
   geom_jitter(color="black", size=0.4, alpha=0.9) +
   theme_classic() + xlab("Categorias") + ylab("ICIP") + 
-  labs(fill = "Catgorias")
+  labs(fill = "Categorias")
 ```
